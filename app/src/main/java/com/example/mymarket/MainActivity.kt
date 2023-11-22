@@ -1,46 +1,39 @@
 package com.example.mymarket
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.mymarket.ui.theme.MyMarketTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MyMarketTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        setContentView(R.layout.activity_join)
+
+        findViewById<Button>(R.id.join)?.setOnClickListener {
+            val userEmail = findViewById<EditText>(R.id.useremail)?.text.toString()
+            val password = findViewById<EditText>(R.id.password)?.text.toString()
+            val userName = findViewById<EditText>(R.id.username)?.text.toString()
+            val birth = findViewById<EditText>(R.id.birth)?.text.toString()
+            doJoin(userEmail, password, userName, birth)
         }
-    }
-}
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyMarketTheme {
-        Greeting("Android")
     }
+        private fun doJoin(userEmail: String, password: String, userName: String, birth: String) {
+            Firebase.auth.createUserWithEmailAndPassword(userEmail, password)
+                .addOnCompleteListener(this) {
+                    if(it.isSuccessful) {
+                        startActivity(Intent(this, MainActivity::class.java))
+                    }
+                    else {
+                        Log.w("LoginActivity", "createUserWithEmail"); it.exception)
+                        Toast.makeText(this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
 }
