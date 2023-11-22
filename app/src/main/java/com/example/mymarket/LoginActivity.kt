@@ -36,7 +36,7 @@ class LoginActivity : ComponentActivity() {
                     startActivity(Intent(this, MainActivity::class.java))
                 }
                 else {
-                    Log.w("LoginActivity", "signInWithEmail"); it.exception)
+                    Log.w("LoginActivity", "signInWithEmail"); it.exception
                     Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
