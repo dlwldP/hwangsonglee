@@ -20,38 +20,22 @@ class LoginActivity : ComponentActivity() {
             val password = findViewById<EditText>(R.id.password)?.text.toString()
             doLogin(userEmail, password)
         }
-//        findViewById<Button>(R.id.join)?.setOnClickListener {
-//            val userEmail = findViewById<EditText>(R.id.useremail)?.text.toString()
-//            val password = findViewById<EditText>(R.id.password)?.text.toString()
-//            val userName = findViewById<EditText>(R.id.username)?.text.toString()
-//            val birth = findViewById<EditText>(R.id.birth)?.text.toString()
-//            doJoin(userEmail,password,userName,birth)
-//        }
+        findViewById<Button>(R.id.join)?.setOnClickListener {
+            startActivity(Intent(this,JoinActivity::class.java))
+        }
     }
 
     private fun doLogin(userEmail: String, password: String) {
         Firebase.auth.signInWithEmailAndPassword(userEmail, password)
             .addOnCompleteListener(this) {
                 if(it.isSuccessful) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                 }
                 else {
-                    Log.w("LoginActivity", "signInWithEmail"); it.exception
+                    Log.w("JoinActivity","signInWithEmail",it.exception)
                     Toast.makeText(this, "로그인에 실패했습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
-//    private fun doJoin(userEmail: String, password: String, userName: String, birth: String) {
-//        Firebase.auth.createUserWithEmailAndPassword(userEmail, password)
-//            .addOnCompleteListener(this) {
-//                if(it.isSuccessful) {
-//                    startActivity(Intent(this, MainActivity::class.java))
-//                }
-//                else {
-//                    Log.w("LoginActivity", "createUserWithEmail"), it.exception)
-//                    Toast.makeText(this. "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//    }
 }

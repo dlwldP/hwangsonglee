@@ -28,12 +28,25 @@ class JoinActivity : ComponentActivity() {
         Firebase.auth.createUserWithEmailAndPassword(userEmail, password)
             .addOnCompleteListener(this) {
                 if(it.isSuccessful) {
-                    startActivity(Intent(this, MainActivity::class.java))
+                    doLogin(userEmail, password)
+                }
+                else {
+                    Log.w("JoinActivity","createUserWithEmail",it.exception)
+                    Toast.makeText(this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+    private fun doLogin(userEmail: String, password: String) {
+        Firebase.auth.signInWithEmailAndPassword(userEmail, password)
+            .addOnCompleteListener(this) {
+                if (it.isSuccessful) {
+                    startActivity(Intent(this, HomeActivity::class.java))
                     finish()
                 }
                 else {
-                    Log.w("LoginActivity", "createUserWithEmail"); it.exception
-                    Toast.makeText(this, "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show()
+                    Log.w("JoinActivity","signInWithEmail",it.exception)
+                    Toast.makeText(this,"로그인에 실패했습니다.",Toast.LENGTH_SHORT).show()
                 }
             }
     }
