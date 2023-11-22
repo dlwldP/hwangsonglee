@@ -28,7 +28,7 @@ class JoinActivity : ComponentActivity() {
         Firebase.auth.createUserWithEmailAndPassword(userEmail, password)
             .addOnCompleteListener(this) {
                 if(it.isSuccessful) {
-                    doLogin(userEmail, password)
+                    doLoginAgain(userEmail, password)
                 }
                 else {
                     Log.w("JoinActivity","createUserWithEmail",it.exception)
@@ -37,7 +37,7 @@ class JoinActivity : ComponentActivity() {
             }
     }
 
-    private fun doLogin(userEmail: String, password: String) {
+    private fun doLoginAgain(userEmail: String, password: String) {
         Firebase.auth.signInWithEmailAndPassword(userEmail, password)
             .addOnCompleteListener(this) {
                 if (it.isSuccessful) {

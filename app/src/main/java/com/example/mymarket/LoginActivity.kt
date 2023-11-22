@@ -13,7 +13,6 @@ import com.google.firebase.auth.auth
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.login)?.setOnClickListener {
             val userEmail = findViewById<EditText>(R.id.useremail)?.text.toString()
