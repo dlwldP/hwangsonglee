@@ -20,13 +20,15 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-black"
             android:gravity="center"
+            android:padding="10dp"
             android:text="판매 글 목록"
-            android:textSize="30sp"/>
+            android:textSize="30sp" />
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="633dp">
+            android:layout_height="578dp"
+            android:padding="10dp">
 
         </ScrollView>
 
@@ -34,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottmOf="parent">
 
             <Button
